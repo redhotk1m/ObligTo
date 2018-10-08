@@ -83,7 +83,10 @@ public class DobbeltLenketListe<T> implements Liste<T>
     public Liste<T> subliste(int fra, int til) {
         fratilKontroll(antall,fra,til);
         Liste<T> liste=new DobbeltLenketListe<>();
-        //må legge inn verdier i listen
+        int i=fra;
+            for(i=fra+1;i<til;i++){
+                //to be continued
+            }
         return liste;
     }
 
