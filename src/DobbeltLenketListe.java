@@ -28,23 +28,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
     private int antall;            // antall noder i listen
     private int endringer;          // antall endringer i listen
 
-    private Node<T> finnNode(int indeks){
-        Node<T> p;
-        if(indeks<antall/2) {
-            p = hode;
-            for (int i = 0; i < indeks; i++) {
-                p = p.neste;
-            }
-        }
-        else {
-            p = hale;
-            for(int i=antall;i>indeks;i--){
-                p=p.forrige;
-            }
-        }
-        return p;
-    }
-
     // konstruktør
     public DobbeltLenketListe()
     {
@@ -76,17 +59,29 @@ public class DobbeltLenketListe<T> implements Liste<T>
         }
     }
 
-
+    public Node<T> finnNode(int indeks){
+        indeksKontroll(indeks, false);
+        Node<T> p;
+        if(indeks<antall/2) {
+            p = hode;
+            for (int i = 0; i < indeks; i++) {
+                p = p.neste;
+            }
+        }
+        else{
+            p=hale;
+            for (int i = antall; i > indeks; i--) {
+                p = p.forrige;
+            }
+        }
+        return p;
+    }
     // subliste
 
 
     public Liste<T> subliste(int fra, int til) {
-        fratilKontroll(antall,fra,til);
-        Liste<T> liste=new DobbeltLenketListe<>();
-        int i=fra;
-            for(i=fra+1;i<til;i++){
-                //to be continued
-            }
+        Liste<T> liste= new DobbeltLenketListe<>();
+        //klarer ikke i need help
         return liste;
     }
 
@@ -140,7 +135,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     @Override   public boolean inneholder(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if(indeksTil(verdi)!=-1) return true;
+        else return false;
     }
 
     @Override   public T hent(int indeks) {
@@ -148,9 +144,15 @@ public class DobbeltLenketListe<T> implements Liste<T>
         return finnNode(indeks).verdi;
     }
 
-    @Override   public int indeksTil(T verdi)
-    {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+    @Override
+    public int indeksTil(T verdi) {
+        if(verdi==null) return -1;
+        Node<T> p= hode;
+        for(int i =0; i<antall;i++){
+            if(p.verdi.equals(verdi)) return i;
+            p=p.neste;
+        }
+        return -1;
     }
 
     @Override   public T oppdater(int indeks, T nyverdi) {
