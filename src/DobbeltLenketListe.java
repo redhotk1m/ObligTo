@@ -139,9 +139,17 @@ public class DobbeltLenketListe<T> implements Liste<T>
         indeksKontroll(indeks, true); //Sjekker om indeks er lovlig
 
         if(antall == 0){ //Hvis det ikke finnes noen elementer i listen:
-            hode = hale = new Node<>(verdi, null, null);
+            hode = hale = new Node<T>(verdi, null, null); //Dette blir det eneste elementet i listen og
+            //Både hode og hale peker på denne noden
         }
-        
+        if (indeks == antall) { //Hvis det skal legges inn node i slutten av listen
+            hale = hale.neste = new Node<T>(verdi, hale, null); //legges inn en ny node på hale.neste
+            //så flyttes halen over til denne verdien. peker på null og den forrige verdien.
+        }
+        else if (indeks == 0) { //hvis den skal legges inn en node først i listen
+            hode = hode.forrige = new Node<>(verdi, null, hode); //legges inn ny node først ved hode.forrige
+            //deretter flyttes hodet hit.
+        }
 
         
     }
