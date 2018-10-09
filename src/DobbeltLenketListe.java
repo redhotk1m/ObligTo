@@ -70,7 +70,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
         }
         else{
             p=hale;
-            for (int i = antall; i > indeks; i--) {
+            for (int i = antall-1; i > indeks; i--) {
                 p = p.forrige;
             }
         }
