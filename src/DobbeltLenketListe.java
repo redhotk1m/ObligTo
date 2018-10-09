@@ -192,112 +192,78 @@ public class DobbeltLenketListe<T> implements Liste<T>
         return gammelverdi;
     }
 
+    //Denne koden gir noen ganger feil på 6zg. Har fått bekreftet at dette
+    //er noe som kan skje og at det ikke nødvendigvis er feil i koden
     @Override   public boolean fjern(T verdi)
     {
         {
-            if (verdi == null) return false;
+            if(verdi == null) { //hvis verdien er null returneres false, null verdier behandles ikke
+                return false;
+            }
 
-            for (Node<T> p = hode; p != null; p = p.neste)
-            {
-                if (p.verdi.equals(verdi))
-                {
-                    if (p == hode)
-                    {
-                        if (antall == 1) hode = hale = null;
-                        else (hode = hode.neste).forrige = null;
-                    }
-                    else if (p == hale) (hale = hale.forrige).neste = null;
-                    else (p.forrige.neste = p.neste).forrige = p.forrige;
+            Node sjekkNode = hode; //vi bruker sjekknode til å sammenlikne verdier
+            while (sjekkNode != null) { //så lenge noden vi sjekker sin verdi ikke er 0 sjekker vi den mot verdien vi leter etter
+                if (sjekkNode.verdi.equals(verdi)) { //om verdiene stemmer over ens går vi vidre med denne noden
+                    break;
+                }
 
-                    antall--;
-                    endringer++;
-                    return true;
+                sjekkNode = sjekkNode.neste; //hvis nodens verdi ikke stemmer med verdien vi leter etter går vi til neste
+            }
+
+            if (sjekkNode == null){ //Hvis noden vi sjekker skulle være utenfor intervallet returneres false
+                return false;
+            }
+
+            if (sjekkNode == hode){ //hvis noden som inneholder verdien vår er hode noden
+                hode = hode.neste; //vi setter hode til den neste noden i listen
+
+                    if (antall != 1) { //Hvis det kun er en verdi i listen:
+                        hode.forrige = null;
+                    } else {
+                        hale = null;
                 }
             }
-            return false;
-        }
-    }
 
-
-/*
-
-        if (verdi == null) {
-            return false;
-        }
-
-        Node denneNoden = hode;    //Initialize current
-        while (denneNoden != null)
-        {
-            if (denneNoden.verdi.equals(verdi)) {
-                 if(denneNoden == hode){
-                     hode = hode.neste;
-                     return true;
-                 }
-                 if(antall == 1){
-                     hale = null;
-                     return true;
-                 }
-                 else {
-                     Node<T> p = denneNoden.forrige;  // p er noden foran den som skal fjernes
-                     Node<T> q = p.neste;               // q skal fjernes
-
-                     if (q == hale) hale = p;           // q er siste node
-                     p.neste = q.neste;
-                     return true;
-                 }
+            else if (sjekkNode == hale){ //Hvis verdien ligger i hale
+                hale = hale.forrige; //Hale settes til den forrige noden
+                hale.neste = null; //setter halen til å peke på 0
             }
-            else{
 
-                return false;    //data found
-        }
-    }
-
-        for (Node<T> p = hode; p != null; p = p.neste)
-        {
-            if (p.verdi.equals(verdi))
-            {
-                if (p == hode)
-                {
-                    if (antall == 1) hode = hale = null;
-                    else (hode = hode.neste).forrige = null;
-                }
-                else if (p == hale) (hale = hale.forrige).neste = null;
-                else (p.forrige.neste = p.neste).forrige = p.forrige;
-
-                antall--;
-                endringer++;
-                return true;
+            else{ //Hvis verdien vi leter etter ligger i midten
+                (sjekkNode.forrige.neste = sjekkNode.neste).forrige = sjekkNode.forrige;
             }
+
+            antall--;
+            endringer++;
+            return true;
         }
-        return false;
     }
-*/
+
     @Override   public T fjern(int indeks)
     {
-        indeksKontroll(indeks, false);
+        indeksKontroll(indeks, false); //Sjekker indeksen
 
-        Node<T> p = finnNode(indeks);
+        Node<T> denneNoden = finnNode(indeks); //Finner noden ved hjelp av indels
 
-        if (p == hode)
-        {
-            if (antall == 1) {
+        if (denneNoden == hode) { //Hvis noden er hodet:
+            if (antall == 1) { //Hvis det kun er en verdi i tabellen setter vi hode og hale til null
                 hode = hale = null;
             }
-            else {
+            else { //Ellers setter vi hode til den neste verdien med peker tilbake på null
                 (hode = hode.neste).forrige = null;
             }
         }
-        else if (p == hale){
-            (hale = hale.forrige).neste = null;
+        else if (denneNoden == hale){  //hvis noden er halen:
+            (hale = hale.forrige).neste = null; //Vi setter halen til nye pekerverdier
         }
-        else {
-            (p.forrige.neste = p.neste).forrige = p.forrige;
+        else { //Hvis noden befinner seg midt i listen bytter vi pekerverdiene rundt noden så den ikke lenger har pekere til seg
+            (denneNoden.forrige.neste = denneNoden.neste).forrige = denneNoden.forrige;
         }
 
         antall--;
         endringer++;
 
-        return p.verdi;
+        return denneNoden.verdi; //returnerer verdien til noden vi slettet
 
     }
 
