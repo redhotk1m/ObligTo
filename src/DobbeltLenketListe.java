@@ -159,8 +159,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
         antall++; //oppdaterer antall i listen
         endringer++; //oppdaterer endringer
-
-        
     }
 
     @Override   public boolean inneholder(T verdi)
@@ -196,12 +194,111 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     @Override   public boolean fjern(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        {
+            if (verdi == null) return false;
+
+            for (Node<T> p = hode; p != null; p = p.neste)
+            {
+                if (p.verdi.equals(verdi))
+                {
+                    if (p == hode)
+                    {
+                        if (antall == 1) hode = hale = null;
+                        else (hode = hode.neste).forrige = null;
+                    }
+                    else if (p == hale) (hale = hale.forrige).neste = null;
+                    else (p.forrige.neste = p.neste).forrige = p.forrige;
+
+                    antall--;
+                    endringer++;
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
+
+/*
+
+        if (verdi == null) {
+            return false;
+        }
+
+        Node denneNoden = hode;    //Initialize current
+        while (denneNoden != null)
+        {
+            if (denneNoden.verdi.equals(verdi)) {
+                 if(denneNoden == hode){
+                     hode = hode.neste;
+                     return true;
+                 }
+                 if(antall == 1){
+                     hale = null;
+                     return true;
+                 }
+                 else {
+                     Node<T> p = denneNoden.forrige;  // p er noden foran den som skal fjernes
+                     Node<T> q = p.neste;               // q skal fjernes
+
+                     if (q == hale) hale = p;           // q er siste node
+                     p.neste = q.neste;
+                     return true;
+                 }
+            }
+            else{
+
+                return false;    //data found
+        }
+    }
+
+        for (Node<T> p = hode; p != null; p = p.neste)
+        {
+            if (p.verdi.equals(verdi))
+            {
+                if (p == hode)
+                {
+                    if (antall == 1) hode = hale = null;
+                    else (hode = hode.neste).forrige = null;
+                }
+                else if (p == hale) (hale = hale.forrige).neste = null;
+                else (p.forrige.neste = p.neste).forrige = p.forrige;
+
+                antall--;
+                endringer++;
+                return true;
+            }
+        }
+        return false;
+    }
+*/
     @Override   public T fjern(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks, false);
+
+        Node<T> p = finnNode(indeks);
+
+        if (p == hode)
+        {
+            if (antall == 1) {
+                hode = hale = null;
+            }
+            else {
+                (hode = hode.neste).forrige = null;
+            }
+        }
+        else if (p == hale){
+            (hale = hale.forrige).neste = null;
+        }
+        else {
+            (p.forrige.neste = p.neste).forrige = p.forrige;
+        }
+
+        antall--;
+        endringer++;
+
+        return p.verdi;
+
     }
 
     //Oppgave 7
