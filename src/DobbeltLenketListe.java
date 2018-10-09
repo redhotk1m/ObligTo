@@ -136,8 +136,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override   public void leggInn(int indeks, T verdi)
     {
         Objects.requireNonNull(verdi, "Null verdier er ikke lov."); //sjekker om verdi er null
-
         indeksKontroll(indeks, true); //Sjekker om indeks er lovlig
+
+        if(antall == 0){ //Hvis det ikke finnes noen elementer i listen:
+            hode = hale = new Node<>(verdi, null, null);
+        }
+        
+
         
     }
 
