@@ -135,7 +135,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     @Override   public void leggInn(int indeks, T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        Objects.requireNonNull(verdi, "Null verdier er ikke lov."); //sjekker om verdi er null
+
     }
 
     @Override   public boolean inneholder(T verdi)
