@@ -84,6 +84,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
         if(til>liste.antall()) throw new IllegalArgumentException("Til (" + til+") kan ikke være større enn antall ("+liste.antall()+")");
         //liste.leggInn(fra);
         //klarer ikke i need help
+        /*List<T> liste= new LinkedList<>();
+        liste.subList(fra, til);*/
         return liste;
     }
 
