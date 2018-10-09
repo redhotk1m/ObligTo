@@ -85,7 +85,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
         //liste.leggInn(fra);
         //klarer ikke i need help
         /*List<T> liste= new LinkedList<>();
-        liste.subList(fra, til);*/
+        liste.subList(fra, til);*/ //noe tekst
         return liste;
     }
 
