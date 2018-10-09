@@ -142,14 +142,23 @@ public class DobbeltLenketListe<T> implements Liste<T>
             hode = hale = new Node<T>(verdi, null, null); //Dette blir det eneste elementet i listen og
             //Både hode og hale peker på denne noden
         }
-        if (indeks == antall) { //Hvis det skal legges inn node i slutten av listen
+        else if (indeks == antall) { //Hvis det skal legges inn node i slutten av listen
             hale = hale.neste = new Node<T>(verdi, hale, null); //legges inn en ny node på hale.neste
             //så flyttes halen over til denne verdien. peker på null og den forrige verdien.
         }
         else if (indeks == 0) { //hvis den skal legges inn en node først i listen
-            hode = hode.forrige = new Node<>(verdi, null, hode); //legges inn ny node først ved hode.forrige
+            hode = hode.forrige = new Node<T>(verdi, null, hode); //legges inn ny node først ved hode.forrige
             //deretter flyttes hodet hit.
         }
+        else
+        {
+            Node<T> enNode = finnNode(indeks); //bruker finnNode til å finne posisjonen til en Node
+            enNode.forrige = enNode.forrige.neste = new Node<T>(verdi, enNode.forrige, enNode); //legger inn en ny node
+            //Og setter pekere til og fra denne noden.
+        }
+
+        antall++; //oppdaterer antall i listen
+        endringer++; //oppdaterer endringer
 
         
     }
