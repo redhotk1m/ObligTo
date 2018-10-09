@@ -137,6 +137,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
     {
         Objects.requireNonNull(verdi, "Null verdier er ikke lov."); //sjekker om verdi er null
 
+        indeksKontroll(indeks, true); //Sjekker om indeks er lovlig
+        
     }
 
     @Override   public boolean inneholder(T verdi)
