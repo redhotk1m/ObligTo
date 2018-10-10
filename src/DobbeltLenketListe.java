@@ -384,12 +384,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
         @Override
         public void remove() {
             //throw new UnsupportedOperationException("Ikke laget ennå!");
-
             //Hvis det ikke er tillatt aa kalle paa denne metoden
             if(fjernOK == true){
                 throw new IllegalStateException(
                         "Det er ikke tillat aa kalle denne metoden!");
             }
+            Node<T> q = hode; //Hjelpevariabel
+            Node<T> r = hode;
 
             //Hvis endringer og iteratorendringer er forskjellige
             if(endringer != iteratorendringer){
@@ -400,18 +401,87 @@ public class DobbeltLenketListe<T> implements Liste<T>
                 fjernOK = false;
             }
 
-            if (antall == 1) {
+
+            //trengs denne??
+            if(hode == null && hale == null){
+                throw new NoSuchElementException(
+                        "Det finnes ingenting å fjerne!");
+
+            }
+          if (antall == 1) {
                 //hvis noden som skal fjernes er eneste verdi
                 hode = null;
                 hale = null;
             }
 
+            //hvis siste skal fjernes
             if(denne == null){
                 //hvis siste node skal fjernes
-                hale = hale.forrige;
+              //  hale = hale.forrige;
+                q = hale.forrige;
+                r = q.forrige;
+
+                r.neste = null; // neste referansen til r er null
+                hale.forrige = r; // forrige referansen til hale er r
+                q.forrige = null;
+
             }
 
 
+            //hvis foerste skal fjernes
+            if(denne.forrige == hode){
+
+                q = hode;
+                q.neste = denne.neste.neste;
+                denne.neste.forrige = null;
+                denne.neste = null;
+                denne = null;
+
+
+
+               // hode.neste = q;
+
+             //denne.neste = null;
+
+
+              //  q  = denne.neste;
+               // q.forrige = hode;
+               // hode.neste = q;
+           //    denne = null;
+
+
+              //  q = denne.neste;
+              //  denne = null;
+              //  hode.neste = q;
+               // q.forrige = hode;
+              //  if(denne == null) hale = null;
+            }
+
+
+            if(hode.neste == denne){
+                hode = hode.neste;
+                if(denne == null) hale = null;
+            }
+            else {  //finner forgjengeren
+                                    // til forgjengeren til denne
+
+                while (r.neste.neste != denne){
+                    r = r.neste; //flytter r
+                }
+
+                q = r.neste; //flytter q til noden etter r og bak denne
+                r.neste = denne; //"hopper" over q
+                if(denne == null) hale = r;
+            }
+
+            q.verdi = null;
+            q.neste = null;
+
+
+            antall--;
+
+            endringer++;
+            iteratorendringer++;
         }
 
     } // DobbeltLenketListeIterator
