@@ -355,7 +355,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
                 denne = denne.neste;
             }
 
-            throw new UnsupportedOperationException("Ikke laget ennå!");
+            
 
         }
 
