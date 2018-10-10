@@ -60,7 +60,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
     }
 
     public Node<T> finnNode(int indeks){
-        indeksKontroll(indeks, false);
         Node<T> p;
         if(indeks<antall/2) {
             p = hode;
@@ -80,12 +79,12 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
 
     public Liste<T> subliste(int fra, int til) {
+        fratilKontroll(antall,fra , til);
         Liste<T> liste= new DobbeltLenketListe<>();
-        Node p=hode;
-        if(til>antall) throw new IllegalArgumentException("Til (" + til+") kan ikke være større enn antall ("+antall+")");
+        Node<T> p=finnNode(fra);
 
         for(int i=fra;i<til;i++){
-            //leggInn(p.verdi);
+            liste.leggInn(p.verdi);
             p=p.neste;
         }
         return liste;
