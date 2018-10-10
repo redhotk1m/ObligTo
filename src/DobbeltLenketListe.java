@@ -59,31 +59,31 @@ public class DobbeltLenketListe<T> implements Liste<T>
         }
     }
 
-    private Node<T> finnNode(int indeks){
-        Node<T> p;
-        if(indeks<antall/2) {
-            p = hode;
-            for (int i = 0; i < indeks; i++) p = p.neste;
+    private Node<T> finnNode(int indeks){                           //finnNode-metode
+        Node<T> p;                                                  //Oppretter en Node
+        if(indeks<antall/2) {                                       //Sjekker om indeksen ligger i første halvdel av listen
+            p = hode;                                               //Setter Node p til første indeks i listen
+            for (int i = 0; i < indeks; i++) p = p.neste;           //For løkke som flytter p fram til indeks
         }
-        else{
-            p=hale;
-            for (int i = antall-1; i > indeks; i--) p = p.forrige;
+        else{                                                       //Dersom indeksen ligger i siste halvdel av tabellen:
+            p=hale;                                                 //Setter Node p til siste indeks i listen
+            for (int i = antall-1; i > indeks; i--) p = p.forrige;  //Flytter p framover til indeks
         }
-        return p;
+        return p;                                                   //Returnerer Noden p i indeks
     }
     // subliste
 
 
-    public Liste<T> subliste(int fra, int til) {
-        fratilKontroll(antall, fra , til);
-        Liste<T> liste= new DobbeltLenketListe<>();
-        Node<T> p=finnNode(fra);
+    public Liste<T> subliste(int fra, int til) {                    //Subliste oppretter en liste med verdiene mellom fra-til
+        fratilKontroll(antall, fra , til);                          //Kjører fratilKontroll metoden
+        Liste<T> liste= new DobbeltLenketListe<>();                 //Oppretter en ny liste
+        Node<T> p=finnNode(fra);                                    //Opretter en Node og setter den på indeksen fra
 
-        for(int i=fra;i<til;i++){
-            liste.leggInn(p.verdi);
-            p=p.neste;
+        for(int i=fra;i<til;i++){                                   //ittererer gjennom indeks fra-til
+            liste.leggInn(p.verdi);                                 //legger til verdienn og referansen fra Node p inn i liste
+            p=p.neste;                                              //Hopper til neste p i opprinnelig liste
         }
-        return liste;
+        return liste;                                               //returnerer den ny listen med Noder i intervallet fra-til
     }
 
     @Override   public int antall()
@@ -161,9 +161,9 @@ public class DobbeltLenketListe<T> implements Liste<T>
         return indeksTil(verdi) != -1;
     }
 
-    @Override   public T hent(int indeks) {
-        indeksKontroll(indeks, false);
-        return finnNode(indeks).verdi;
+    @Override   public T hent(int indeks) {                             //Metoden hent
+        indeksKontroll(indeks, false);                          //Kjører metoden indeksKontroll
+        return finnNode(indeks).verdi;                                  //Returnerer verdien til Noden i input indeks
     }
 
     @Override
@@ -177,13 +177,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
         return -1;
     }
 
-    @Override   public T oppdater(int indeks, T nyverdi) {
-        Objects.requireNonNull(nyverdi, "Ny verdi kan ikke være null");
-        indeksKontroll(indeks, false);
-        Node<T> p= finnNode(indeks);
-        T gammelverdi =p.verdi;
-        p.verdi=nyverdi;
-        return gammelverdi;
+    @Override   public T oppdater(int indeks, T nyverdi) {                          //Metoden oppdater
+        Objects.requireNonNull(nyverdi, "Ny verdi kan ikke være null");     //Sjekker at ikke den nye verdien er null
+        indeksKontroll(indeks, false);                                      //Kjører metoden indekskontroll
+        Node<T> p= finnNode(indeks);                                                //Oppretter en ny Node med verdiene til gammel node på gitt indeks
+        T gammelverdi =p.verdi;                                                     //Lagrer den gamle verdien til Noden
+        p.verdi=nyverdi;                                                            //Gir noden p ny verdi
+        return gammelverdi;                                                         //Returnerer den gamle verdien til Noden
     }
 
     //Denne koden gir noen ganger feil på 6zg. Har fått bekreftet at dette
@@ -322,18 +322,15 @@ public class DobbeltLenketListe<T> implements Liste<T>
     {
         throw new UnsupportedOperationException("Ikke laget ennå!");
     }
-    private void fratilKontroll(int antall, int fra, int til) {
-        if (fra < 0)                                  // fra er negativ
-            throw new IndexOutOfBoundsException
-                    ("fra(" + fra + ") er negativ!");
+    private void fratilKontroll(int antall, int fra, int til) {                     //Fra til kontroll
+        if (fra < 0)                                                                //Dersom fra er negativ
+            throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");    //kast unntak
 
-        if (til > antall)                          // til er utenfor tabellen
-            throw new IndexOutOfBoundsException
-                    ("til(" + til + ") > antall(" + antall + ")");
+        if (til > antall())                                                         //Dersom til er utenfor tabellen
+            throw new IndexOutOfBoundsException("til(" + til + ") > antall(" + antall + ")"); //kast unntak
 
-        if (fra > til)                                // fra er større enn til
-            throw new IllegalArgumentException
-                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+        if (fra > til)                                                               //Dersom fra er støre enn til
+            throw new IllegalArgumentException("fra(" + fra + ") > til(" + til + ") - illegalt intervall!"); //Kast unntak
     }
 
 
