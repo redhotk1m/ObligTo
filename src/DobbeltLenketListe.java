@@ -84,7 +84,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
         Node p=hode;
         if(til>liste.antall()) throw new IllegalArgumentException("Til (" + til+") kan ikke være større enn antall ("+liste.antall()+")");
         for(int i=fra;i<til;i++){
-            //liste.leggInn(p.verdi);
+            //leggInn(p.verdi);
             p=p.neste;
         }
         return liste;
