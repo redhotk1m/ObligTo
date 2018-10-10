@@ -157,10 +157,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
         endringer++; //oppdaterer endringer
     }
 
-    @Override   public boolean inneholder(T verdi)
-    {
-        if(indeksTil(verdi)!=-1) return true;
-        else return false;
+    @Override   public boolean inneholder(T verdi) {
+        return indeksTil(verdi) != -1;
     }
 
     @Override   public T hent(int indeks) {
