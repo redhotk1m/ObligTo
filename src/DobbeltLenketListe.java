@@ -59,19 +59,15 @@ public class DobbeltLenketListe<T> implements Liste<T>
         }
     }
 
-    public Node<T> finnNode(int indeks){
+    private Node<T> finnNode(int indeks){
         Node<T> p;
         if(indeks<antall/2) {
             p = hode;
-            for (int i = 0; i < indeks; i++) {
-                p = p.neste;
-            }
+            for (int i = 0; i < indeks; i++) p = p.neste;
         }
         else{
             p=hale;
-            for (int i = antall-1; i > indeks; i--) {
-                p = p.forrige;
-            }
+            for (int i = antall-1; i > indeks; i--) p = p.forrige;
         }
         return p;
     }
@@ -79,7 +75,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
 
     public Liste<T> subliste(int fra, int til) {
-        fratilKontroll(antall,fra , til);
+        fratilKontroll(antall, fra , til);
         Liste<T> liste= new DobbeltLenketListe<>();
         Node<T> p=finnNode(fra);
 
