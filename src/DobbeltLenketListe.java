@@ -41,18 +41,18 @@ public class DobbeltLenketListe<T> implements Liste<T>
     {
         Node p;
         if (a == null){
-            throw new NullPointerException("Feil ved opprettelse av liste, nullverdi");
+            throw new NullPointerException("Feil ved opprettelse av liste, nullverdi"); //Nullverdi som parameter
         } else {
-            for (int i = 0; i<a.length; ++i){
-                if (a[i]!=null){
-                    if (hode == hale && hode == null){
-                        hode = new Node<T>(a[i],null,null);
-                        hale = hode;
+            for (int i = 0; i<a.length; ++i){ //For løkke som itererer gjennom hele listen
+                if (a[i]!=null){ //Kjører så lenge indeksen ikke er null (dvs, tar ikke med null elementer i listen)
+                    if (hode == hale && hode == null){ //Hvis det ikke eksisterer noen elementer i listen enda, altså hale = hode er samme verdi, null.
+                        hode = new Node<T>(a[i],null,null); //Oppretter ny node.
+                        hale = hode; //Setter hale og hode til samme verdi, fordi det bare er ett element i listen.
                     }else {
-                        p = new Node<T>(a[i], null, null);
-                        p.forrige = hale;
-                        hale.neste = p;
-                        hale = p;
+                        p = new Node<T>(a[i], null, null); //Lager elementet P.
+                        p.forrige = hale; //Setter p sin forrige til hale
+                        hale.neste = p; //Setter halen sin neste til å peke på p.
+                        hale = p;  // Flytter halen til å peke på P.
                     }
                 }
             }
@@ -89,44 +89,44 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override   public int antall()
     {
 
-        antall = 0;
-        Node currentNode = hode;
+        antall = 0;  // Setter antall til null, for å begynne tellingen.
+        Node currentNode = hode;  // Setter currentNode til å være hode.
 
-        while (currentNode!=null) {
-            ++antall;
-            currentNode = currentNode.neste;
+        while (currentNode!=null) {  //Så lenge noden eksisterer så :
+            ++antall; //Øk antall med 1
+            currentNode = currentNode.neste; // Flytt correntNode til neste node.
         }
-        return antall;
+        return antall; // Returnerer antall.
     }
 
     @Override   public boolean tom()
     {
-        if (antall==0){
-            return true;
+        if (antall==0){ //Sjekker om antall er 0.
+            return true; // Hvis antall er 0, return true.
         }
-        return false;
+        return false; // Hvis antall ikke er 0, return false.
 
     }
 
     @Override   public boolean leggInn(T verdi)
     {
-        if (verdi == null){
-            throw new NullPointerException("Verdiene er null");
+        if (verdi == null){ //Hvis verdien til noden er null
+            throw new NullPointerException("Verdiene er null"); // Kast en NullPointerException
         }
 
-        if (hode == hale && hode == null){
-            hode = new Node<T>(verdi,null,null);
-            hale = hode;
+        if (hode == hale && hode == null){ // Det ikke er noen noder enda, altså hale og hode er begge null.
+            hode = new Node<T>(verdi,null,null); // Lag ny node, og la hode peke på den.
+            hale = hode; // La hale også peke på samme node som Hode.
 
         }else {
-            Node<T> p = new Node<T>(verdi, null, null);
-            p.forrige = hale;
-            hale.neste = p;
-            hale = p;
+            Node<T> p = new Node<T>(verdi, null, null); // Lag ny node P
+            p.forrige = hale;  // Sett p sin forrige til å være hale.
+            hale.neste = p; // Sett hale sin neste til å være P.
+            hale = p; // Sett hale til å nå peke på P.
         }
 
-        antall();
-        return true;
+        antall(); // Beregn antall noder.
+        return true; // Returner true.
     }
 
     @Override   public void leggInn(int indeks, T verdi)
@@ -211,10 +211,10 @@ public class DobbeltLenketListe<T> implements Liste<T>
             if (sjekkNode == hode){ //hvis noden som inneholder verdien vår er hode noden
                 hode = hode.neste; //vi setter hode til den neste noden i listen
 
-                    if (antall != 1) { //Hvis det kun er en verdi i listen:
-                        hode.forrige = null;
-                    } else {
-                        hale = null;
+                if (antall != 1) { //Hvis det kun er en verdi i listen:
+                    hode.forrige = null;
+                } else {
+                    hale = null;
                 }
             }
 
@@ -320,7 +320,9 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     public Iterator<T> iterator(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks,false);
+        DobbeltLenketListeIterator iter2 = new DobbeltLenketListeIterator(indeks);
+        return iter2;
     }
     private void fratilKontroll(int antall, int fra, int til) {                     //Fra til kontroll
         if (fra < 0)                                                                //Dersom fra er negativ
@@ -392,7 +394,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
             //Hvis endringer og iteratorendringer er forskjellige
             if(endringer != iteratorendringer){
                 throw new ConcurrentModificationException(
-                                "Endringer og iteratorendringer er forskjellige!");
+                        "Endringer og iteratorendringer er forskjellige!");
 
             }else {
                 fjernOK = false;
@@ -409,7 +411,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
                 hale = hale.forrige;
             }
 
-            
+
         }
 
     } // DobbeltLenketListeIterator
