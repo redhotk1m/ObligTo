@@ -4,7 +4,7 @@ import java.util.*;
 //Karla Sosa
 //Martina Førre
 //Kim Thorsen
-//Even Olsen
+//Even Olsen s325889
 
 public class DobbeltLenketListe<T> implements Liste<T> {
     private static final class Node<T>   // en indre nodeklasse
@@ -75,12 +75,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             for (int i = antall - 1; i > indeks; i--) p = p.forrige;  //Flytter p framover til indeks
         }
         return p;
-      //Returnerer Noden p i indeks
+        //Returnerer Noden p i indeks
 
     }
     // subliste
 
-        //Oppgave 3 b
+    //Oppgave 3 b
     public Liste<T> subliste(int fra, int til) {                    //Subliste oppretter en liste med verdiene mellom fra-til
         fratilKontroll(antall, fra, til);                          //Kjører fratilKontroll metoden
         Liste<T> liste = new DobbeltLenketListe<>();                 //Oppretter en ny liste
@@ -164,19 +164,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         endringer++; //oppdaterer endringer
     }
 
-        //oppgave 4
+    //oppgave 4
     @Override
     public boolean inneholder(T verdi) {
         return indeksTil(verdi) != -1;
     }
 
-        //Oppgave 3
+    //Oppgave 3
     @Override
     public T hent(int indeks) {                             //Metoden hent
         indeksKontroll(indeks, false);                          //Kjører metoden indeksKontroll
         return finnNode(indeks).verdi;                                  //Returnerer verdien til Noden i input indeks
     }
-        //Oppgave 4
+    //Oppgave 4
     @Override
     public int indeksTil(T verdi) {
         if (verdi == null) return -1;
@@ -285,8 +285,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         hode=hale=null;                         //Når loopen er feridg sitter vi hode og hale til null og antall til 0.
         antall=0;
-        
-        
+
+
         for (int i = 0; i < antall; i++) {    // Gjør det samme som whild loopen ved å bruke metoden fjern.
             fjern(i);
 
@@ -349,21 +349,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             liste.leggInn(liste.fjern(m));
         }
     }
-
+    //Oppgave 8 b
     @Override
     public Iterator<T> iterator() {
 
-        DobbeltLenketListeIterator iter = new DobbeltLenketListeIterator();
-        return iter;
+        DobbeltLenketListeIterator iter = new DobbeltLenketListeIterator();     // Lager en "instanse" av DobbeltLenketListerIterator
+        return iter;                                                            //Bare returner iteratoren som ble lagd.
 
     }
 
+    //Opppgave 8 d
     public Iterator<T> iterator(int indeks) {
-        indeksKontroll(indeks, false);
-        DobbeltLenketListeIterator iter2 = new DobbeltLenketListeIterator(indeks);
+        indeksKontroll(indeks, false);                                      //Bruker indekskontroll
+        DobbeltLenketListeIterator iter2 = new DobbeltLenketListeIterator(indeks);  //Gjør det samme som oppgave b
         return iter2;
     }
-        //Oppgave 3b
+    //Oppgave 3b
     private void fratilKontroll(int antall, int fra, int til) {                     //Fra til kontroll
         if (fra < 0)                                                                //Dersom fra er negativ
             throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");    //kast unntak
@@ -387,8 +388,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             iteratorendringer = endringer;  // teller endringer
         }
 
+        //Oppgave 8 c
         private DobbeltLenketListeIterator(int indeks) {
-            for (int i = 0; i < indeks; i++) {
+            for (int i = 0; i < indeks; i++) {              //Kjører gjennom loopen og setter denne til neste pekeren
                 denne = denne.neste;
             }
 
@@ -401,18 +403,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
 
+        //Oppgave 8 a
         @Override
         public T next() {
             if (iteratorendringer != endringer)
-                throw new ConcurrentModificationException("De er ikke like");
+                throw new ConcurrentModificationException("De er ikke like");       // skjekker at blir gjort endringer
 
             if (!hasNext()) {
-                throw new NoSuchElementException("Ikke flere noder igjen");
+                throw new NoSuchElementException("Ikke flere noder igjen");         // Skjekker at det ikke er noen flere noder
             }
-            fjernOK = true;
-            T verdi = denne.verdi;
-            denne = denne.neste;
-            return verdi;
+            fjernOK = true;                                                         //fjernOk blir satt til true
+            T verdi = denne.verdi;                                                  // T verdi blir gjort til denne.verdi
+            denne = denne.neste;                                                    // og denne peker på denne sin neste
+            return verdi;                                                           // returner verdi
         }
 
         //oppg 9
