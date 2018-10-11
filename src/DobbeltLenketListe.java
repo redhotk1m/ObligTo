@@ -306,18 +306,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //en for løkke som itererer gjennom listen
         for(int i = liste.antall(); i>0; i--){
             int m = 0; //m er indeksen til midlertidig minsteverdi
+
+            //Lager en ny iterator hver iterasjon
             Iterator<T> iterator = liste.iterator();
 
-            T minsteVerdi = iterator.next();
+            T minsteVerdi = iterator.next(); // midlertidig minsteverdi til første verdi i lenken
 
+            //itererer frem til i
             for(int j = 1; j < i; j++){
-                T verdi = iterator.next();
+                T verdi = iterator.next(); //Setter verdi lik neste verdi i lenken
 
+
+                //Sammenligner verdi med minsteVerdi
                 if(c.compare(verdi,minsteVerdi) < 0){
+                    //Hvis verdi er mindre blir minsteVerdi oppdatert
+
                     m = j;
                     minsteVerdi = verdi;
                 }
             }
+
+            //Fjerner minste verdien fra listen, legger bakerst
             liste.leggInn(liste.fjern(m));
         }
     }
@@ -402,11 +411,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                         "Endringer og iteratorendringer er forskjellige!");
 
             }
-            //Hvis det ikke er tillatt aa kalle paa denne metoden
 
             fjernOK = false;
 
-            //Sjekker om første node skal fjernes
             if(antall == 1) {
 
                 hode = null;
