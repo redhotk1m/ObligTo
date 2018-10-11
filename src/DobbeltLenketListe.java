@@ -250,27 +250,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     //Oppgave 7
+    //Her skal man velge mellom den ikke er kommentert og den kommenterte begge viker
     @Override
     public void nullstill() {
-        Node currentNode = hode;
-        Node hjelper = null;
+        Node currentNode = hode;                //Lager en Node peker til hode
+        Node hjelper = null;                    //Lager en ny Node ved verdi null, skal endres på.
 
-        while (currentNode != null) {
-            hjelper = currentNode;
-            currentNode = hjelper.neste;
-            hjelper.verdi = null;
-            hjelper.neste = null;
+        while (currentNode != null) {           //while loopen skjekker om Noden er null hvis ikke den
+            hjelper = currentNode;              // ikke er null gå gjennom loopen. 
+            currentNode = hjelper.neste;        // Sier at hjelper peker på currentNode og CurrentNode er hjelper sin neste.
+            hjelper.verdi = null;               // hjelper sin node blir ikke null, men sin verdi blir null og
+            hjelper.neste = null;               // sine pekere blir null og når ingenting peker på noden blir den null
             hjelper.forrige = null;
         }
         
-        hode=hale=null;
+        hode=hale=null;                         //Når loopen er feridg sitter vi hode og hale til null og antall til 0.
         antall=0;
         
         /*
-        for (int i = 0; i < antall(); i++) {
+        for (int i = 0; i < antall(); i++) {    // Gjør det samme som whild loopen ved å bruke metoden fjern.
             fjern(i);
 
         }
+        hode=hale=null;                         // Loopen er ferdig sitter hode, hale til null og antall til 0.
+        antall=0;
         */
     }
 
