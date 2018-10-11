@@ -250,7 +250,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     //Oppgave 7
-    //Her skal man velge mellom den ikke er kommentert og den kommenterte begge viker
+    
     @Override
     public void nullstill() {
         Node currentNode = hode;                //Lager en Node peker til hode
@@ -267,14 +267,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         hode=hale=null;                         //Når loopen er feridg sitter vi hode og hale til null og antall til 0.
         antall=0;
         
-        /*
+        
         for (int i = 0; i < antall(); i++) {    // Gjør det samme som whild loopen ved å bruke metoden fjern.
             fjern(i);
 
         }
         hode=hale=null;                         // Loopen er ferdig sitter hode, hale til null og antall til 0.
         antall=0;
-        */
+        
     }
 
     @Override
