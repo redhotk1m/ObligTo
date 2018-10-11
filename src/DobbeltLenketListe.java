@@ -65,10 +65,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             p = hale;                                                 //Setter Node p til siste indeks i listen
             for (int i = antall - 1; i > indeks; i--) p = p.forrige;  //Flytter p framover til indeks
         }
-        else{                                                       //Dersom indeksen ligger i siste halvdel av tabellen:
-            p=hale;                                                 //Setter Node p til siste indeks i listen
-            for (int i = antall()-1; i > indeks; i--) p = p.forrige;  //Flytter p framover til indeks
-        }
         return p;
       //Returnerer Noden p i indeks
 
