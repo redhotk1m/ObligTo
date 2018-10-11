@@ -262,11 +262,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hjelper.neste = null;
             hjelper.forrige = null;
         }
-
+        
+        hode=hale=null;
+        antall=0;
+        
+        /*
         for (int i = 0; i < antall(); i++) {
             fjern(i);
 
         }
+        */
     }
 
     @Override
