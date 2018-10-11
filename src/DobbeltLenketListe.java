@@ -58,14 +58,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     private Node<T> finnNode(int indeks) {                           //finnNode-metode
         Node<T> p;                                                  //Oppretter en Node
-        if (indeks < antall / 2) {                                       //Sjekker om indeksen ligger i første halvdel av listen
+        if(indeks<antall()/2) {                                       //Sjekker om indeksen ligger i første halvdel av listen
             p = hode;                                               //Setter Node p til første indeks i listen
             for (int i = 0; i < indeks; i++) p = p.neste;           //For løkke som flytter p fram til indeks
         } else {                                                       //Dersom indeksen ligger i siste halvdel av tabellen:
             p = hale;                                                 //Setter Node p til siste indeks i listen
             for (int i = antall - 1; i > indeks; i--) p = p.forrige;  //Flytter p framover til indeks
         }
-        return p;                                                   //Returnerer Noden p i indeks
+        else{                                                       //Dersom indeksen ligger i siste halvdel av tabellen:
+            p=hale;                                                 //Setter Node p til siste indeks i listen
+            for (int i = antall()-1; i > indeks; i--) p = p.forrige;  //Flytter p framover til indeks
+        }
+        return p;
+      //Returnerer Noden p i indeks
+
     }
     // subliste
 
@@ -231,7 +237,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> denneNoden = finnNode(indeks); //Finner noden ved hjelp av indels
 
         if (denneNoden == hode) { //Hvis noden er hodet:
-            if (antall == 1) { //Hvis det kun er en verdi i tabellen setter vi hode og hale til null
+            if (antall() == 1) { //Hvis det kun er en verdi i tabellen setter vi hode og hale til null
                 hode = hale = null;
             } else { //Ellers setter vi hode til den neste verdien med peker tilbake på null
                 (hode = hode.neste).forrige = null;
