@@ -361,89 +361,58 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return verdi;
         }
 
+        //oppg 9
         @Override
         public void remove() {
-            //throw new UnsupportedOperationException("Ikke laget ennå!");
             //Hvis det ikke er tillatt aa kalle paa denne metoden
+
+            fjernOK = false;
+
             if (fjernOK == true) {
                 throw new IllegalStateException(
                         "Det er ikke tillat aa kalle denne metoden!");
             }
-            Node<T> q = hode; //Hjelpevariabel
-            Node<T> r = hode;
 
             //Hvis endringer og iteratorendringer er forskjellige
             if (endringer != iteratorendringer) {
                 throw new ConcurrentModificationException(
                         "Endringer og iteratorendringer er forskjellige!");
 
-            } else {
-                fjernOK = false;
+            }
+            if(antall == 0){
+                throw new IllegalStateException("Kan ikke fjerne fra tom liste!");
             }
 
+            //Sjekker om første node skal fjernes
+            if(antall == 1) {
 
-            //trengs denne??
-            if (hode == null && hale == null) {
-                throw new NoSuchElementException(
-                        "Det finnes ingenting å fjerne!");
-
-            }
-            if (antall == 1) {
-                //hvis noden som skal fjernes er eneste verdi
                 hode = null;
                 hale = null;
-            }
-
-            //hvis siste skal fjernes
-            //DENNE FUNKER
-            if (denne == null) {
-                //hvis siste node skal fjernes
-                //  hale = hale.forrige;
-                q = hale.forrige;
-                r = q.forrige;
-
-                r.neste = null; // neste referansen til r er null
-                hale.forrige = r; // forrige referansen til hale er r
-                q.forrige = null;
 
             }
+            //Sjekker om siste node skal fjernes.
+           else if(denne == null) {
 
+                hale = hale.forrige;
+                hale.neste = null;
+            }
+            //Sjekker om første node skal fjernes
+            else if(denne.forrige == hode) {
 
-            //hvis foerste skal fjernes
-            //DENNE FUNKER
-            if(denne.forrige == hode) {
-
-                q = denne.neste;
                 hode = hode.neste;
-                hode.neste = q;
-                q.forrige = hode;
-
-                //uten denne kjoerer ikke denne??
-                denne = null;
-
-                //trenger jeg denne?
-                if (denne == null) hale = null;
-
-
+                hode.forrige = null;
             }
-            if(hode.neste != denne) {  //finner forgjengeren
-                // til forgjengeren til denne
+            else {
+                Node<T> q = denne.forrige;  //q skal fjernes
+                Node<T> p = q.forrige;      //p er noden før q
+                Node<T> r = denne;          //r er noden etter q, altså denne
 
-                while (r.neste.neste != denne) {
-                    r = r.neste; //flytter r
-                }
+                p.neste = r;                // Endrer pekerene
+                r.forrige = p;
 
-                q = r.neste; //flytter q til noden etter r og bak denne
-                r.neste = denne; //"hopper" over q
-                if (denne == null) hale = r;
+                //q har ikke lenger noen pekere.
             }
-
-            q.verdi = null;
-            q.neste = null;
-
-
             antall--;
-
             endringer++;
             iteratorendringer++;
         }
