@@ -1,5 +1,11 @@
 import java.util.*;
 
+//Thora Mothes s313732
+//Karla Sosa
+//Martina Førre
+//Kim Thorsen
+//Even Olsen
+
 public class DobbeltLenketListe<T> implements Liste<T> {
     private static final class Node<T>   // en indre nodeklasse
     {
@@ -132,6 +138,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return true; // Returner true.
     }
 
+    //OPPGAVE 5
     @Override
     public void leggInn(int indeks, T verdi) {
         Objects.requireNonNull(verdi, "Null verdier er ikke lov."); //sjekker om verdi er null
@@ -188,6 +195,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return gammelverdi;                                                         //Returnerer den gamle verdien til Noden
     }
 
+    //OPPGAVE 6
     //Denne koden gir noen ganger feil på 6zg. Har fått bekreftet at dette
     //er noe som kan skje og at det ikke nødvendigvis er feil i koden
     @Override
