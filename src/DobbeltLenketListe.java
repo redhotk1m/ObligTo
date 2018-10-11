@@ -371,9 +371,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 throw new ConcurrentModificationException("De er ikke like");
 
             if (!hasNext()) {
-                fjernOK = true;
                 throw new NoSuchElementException("Ikke flere noder igjen");
             }
+            fjernOK = true;
             T verdi = denne.verdi;
             denne = denne.neste;
             return verdi;
@@ -382,11 +382,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //oppg 9
         @Override
         public void remove() {
-            //Hvis det ikke er tillatt aa kalle paa denne metoden
 
-            fjernOK = false;
-
-            if (fjernOK == true) {
+            if (fjernOK == false) {
                 throw new IllegalStateException(
                         "Det er ikke tillat aa kalle denne metoden!");
             }
@@ -397,9 +394,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                         "Endringer og iteratorendringer er forskjellige!");
 
             }
-            if(antall == 0){
-                throw new IllegalStateException("Kan ikke fjerne fra tom liste!");
-            }
+            //Hvis det ikke er tillatt aa kalle paa denne metoden
+
+            fjernOK = false;
 
             //Sjekker om første node skal fjernes
             if(antall == 1) {
