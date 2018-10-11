@@ -291,9 +291,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         return a.toString();
     }
-
+    //oppgave 10
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+    //    throw new UnsupportedOperationException("Ikke laget ennå!");
+
+        //en for løkke som itererer gjennom listen
+        for(int i = liste.antall(); i>0; i--){
+            int m = 0; //m er indeksen til midlertidig minsteverdi
+            Iterator<T> iterator = liste.iterator();
+
+            T minsteVerdi = iterator.next();
+
+            for(int j = 1; j < i; j++){
+                T verdi = iterator.next();
+
+                if(c.compare(verdi,minsteVerdi) < 0){
+                    m = j;
+                    minsteVerdi = verdi;
+                }
+            }
+            liste.leggInn(liste.fjern(m));
+        }
     }
 
     @Override
