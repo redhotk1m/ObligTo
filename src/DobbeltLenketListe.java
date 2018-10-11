@@ -64,6 +64,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
+    //Oppgave 3
     private Node<T> finnNode(int indeks) {                           //finnNode-metode
         Node<T> p;                                                  //Oppretter en Node
         if(indeks<antall/2) {                                       //Sjekker om indeksen ligger i første halvdel av listen
@@ -79,7 +80,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
     // subliste
 
-
+        //Oppgave 3 b
     public Liste<T> subliste(int fra, int til) {                    //Subliste oppretter en liste med verdiene mellom fra-til
         fratilKontroll(antall, fra, til);                          //Kjører fratilKontroll metoden
         Liste<T> liste = new DobbeltLenketListe<>();                 //Oppretter en ny liste
@@ -163,17 +164,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         endringer++; //oppdaterer endringer
     }
 
+        //oppgave 4
     @Override
     public boolean inneholder(T verdi) {
         return indeksTil(verdi) != -1;
     }
 
+        //Oppgave 3
     @Override
     public T hent(int indeks) {                             //Metoden hent
         indeksKontroll(indeks, false);                          //Kjører metoden indeksKontroll
         return finnNode(indeks).verdi;                                  //Returnerer verdien til Noden i input indeks
     }
-
+        //Oppgave 4
     @Override
     public int indeksTil(T verdi) {
         if (verdi == null) return -1;
@@ -185,6 +188,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return -1;
     }
 
+    //Oppgave 3
     @Override
     public T oppdater(int indeks, T nyverdi) {                          //Metoden oppdater
         Objects.requireNonNull(nyverdi, "Ny verdi kan ikke være null");     //Sjekker at ikke den nye verdien er null
@@ -359,7 +363,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         DobbeltLenketListeIterator iter2 = new DobbeltLenketListeIterator(indeks);
         return iter2;
     }
-
+        //Oppgave 3b
     private void fratilKontroll(int antall, int fra, int til) {                     //Fra til kontroll
         if (fra < 0)                                                                //Dersom fra er negativ
             throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");    //kast unntak
