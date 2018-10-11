@@ -173,7 +173,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 3
     @Override
     public T hent(int indeks) {                             //Metoden hent
-        indeksKontroll(indeks, false);                          //Kjører metoden indeksKontroll
+        if(indeks<0|| indeks>=antall) throw new IndexOutOfBoundsException(); // Her skulle egentlig metoden indekskontroll bli kalt, men da gikk programmet for sent.
         return finnNode(indeks).verdi;                                  //Returnerer verdien til Noden i input indeks
     }
     //Oppgave 4
@@ -247,7 +247,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T fjern(int indeks) {
         indeksKontroll(indeks, false); //Sjekker indeksen
 
-        Node<T> denneNoden = finnNode(indeks); //Finner noden ved hjelp av indels
+        Node<T> denneNoden = finnNode(indeks); //Finner noden ved hjelp av indeks
 
         if (denneNoden == hode) { //Hvis noden er hodet:
             if (antall == 1) { //Hvis det kun er en verdi i tabellen setter vi hode og hale til null
