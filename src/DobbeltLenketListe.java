@@ -2,7 +2,7 @@ import java.util.*;
 
 //Thora Mothes s313732
 //Karla Sosa
-//Martina Førre
+//Martina Rebekka Førre s235401
 //Kim Thorsen
 //Even Olsen s325889
 
