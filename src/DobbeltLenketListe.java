@@ -190,13 +190,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     //Oppgave 3
     @Override
-    public T oppdater(int indeks, T nyverdi) {                          //Metoden oppdater
+    public T oppdater(int indeks, T nyverdi) {                                       //Metoden oppdater
         Objects.requireNonNull(nyverdi, "Ny verdi kan ikke være null");     //Sjekker at ikke den nye verdien er null
-        indeksKontroll(indeks, false);                                      //Kjører metoden indekskontroll
+        indeksKontroll(indeks, false);                                       //Kjører metoden indekskontroll
         Node<T> p = finnNode(indeks);                                                //Oppretter en ny Node med verdiene til gammel node på gitt indeks
         T gammelverdi = p.verdi;                                                     //Lagrer den gamle verdien til Noden
-        p.verdi = nyverdi;                                                            //Gir noden p ny verdi
-        return gammelverdi;                                                         //Returnerer den gamle verdien til Noden
+        p.verdi = nyverdi;                                                           //Gir noden p ny verdi
+        endringer++;
+        return gammelverdi;                                                          //Returnerer den gamle verdien til Noden
     }
 
     //OPPGAVE 6
@@ -275,24 +276,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node currentNode = hode;                //Lager en Node peker til hode
         Node hjelper = null;                    //Lager en ny Node ved verdi null, skal endres på.
 
+
         while (currentNode != null) {           //while loopen skjekker om Noden er null hvis ikke den
             hjelper = currentNode;              // ikke er null gå gjennom loopen.
             currentNode = hjelper.neste;        // Sier at hjelper peker på currentNode og CurrentNode er hjelper sin neste.
             hjelper.verdi = null;               // hjelper sin node blir ikke null, men sin verdi blir null og
             hjelper.neste = null;               // sine pekere blir null og når ingenting peker på noden blir den null
             hjelper.forrige = null;
+            endringer++;
         }
 
         hode=hale=null;                         //Når loopen er feridg sitter vi hode og hale til null og antall til 0.
         antall=0;
 
-
+/*
         for (int i = 0; i < antall; i++) {    // Gjør det samme som whild loopen ved å bruke metoden fjern.
             fjern(i);
+            endringer++;
 
         }
         hode=hale=null;                         // Loopen er ferdig sitter hode, hale til null og antall til 0.
         antall=0;
+        */
+
 
     }
 
@@ -390,12 +396,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         //Oppgave 8 c
         private DobbeltLenketListeIterator(int indeks) {
-            for (int i = 0; i < indeks; i++) {              //Kjører gjennom loopen og setter denne til neste pekeren
-                denne = denne.neste;
-            }
+
+            Node<T> p = finnNode(indeks);           // Lager en genersik Node og bruker finnNode til å finne indeksen til den
+            denne=p;                                // Sier at denne er p
+            iteratorendringer=endringer;            // Og da iteratorendringer = endringer.
 
 
         }
+
+
+
+
 
         @Override
         public boolean hasNext() {
@@ -406,12 +417,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Oppgave 8 a
         @Override
         public T next() {
-            if (iteratorendringer != endringer)
-                throw new ConcurrentModificationException("De er ikke like");       // skjekker at blir gjort endringer
+
+            if (endringer != iteratorendringer) {
+                throw new ConcurrentModificationException("De er ikke like");
+                }                                                                   // skjekker at blir gjort endringer
 
             if (!hasNext()) {
                 throw new NoSuchElementException("Ikke flere noder igjen");         // Skjekker at det ikke er noen flere noder
             }
+
             fjernOK = true;                                                         //fjernOk blir satt til true
             T verdi = denne.verdi;                                                  // T verdi blir gjort til denne.verdi
             denne = denne.neste;                                                    // og denne peker på denne sin neste
