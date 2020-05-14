@@ -4,3 +4,5 @@ Obligatory assignment in DATS2300 Algorithms and Data Structures
 - To create and understand different linked lists
 - Binary tree
 - Sorting algorithms
+- Iterators
+- Testing
